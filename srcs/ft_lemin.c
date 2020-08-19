@@ -22,7 +22,9 @@ void 	ft_bezerostruct(t_lemin *l)
 	l->rooms = 0;
 	l->links = 0;
 	l->start_name = NULL;
+	l->start_coord = NULL;
 	l->end_name = NULL;
+	l->end_coord = NULL;
 	l->links_name = NULL;
 	l->room_name = NULL;
 	l->coordinate = NULL;
