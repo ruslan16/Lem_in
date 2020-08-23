@@ -14,7 +14,7 @@
 #include "../libft/includes/libft.h"
 #include "../libft/includes/get_next_line.h"
 
-void 	ft_bezerostruct(t_lemin *l)
+void 	be_zero_struct(t_lemin *l)
 {
 	l->ants = 0;
 	l->start = 0;
@@ -37,7 +37,7 @@ int		main()
 
 	if (!(l = ft_memalloc(sizeof(t_lemin))))
 		return (0);
-	ft_bezerostruct(l);
+	be_zero_struct(l);
 	if (read_map(0, l) == 0)
 		write(2, "Error\n", 6);
 	//free_struct(l);

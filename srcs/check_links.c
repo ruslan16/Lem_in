@@ -27,7 +27,7 @@ int 		check_double_link(char *line, t_lemin *l)
 		return (0);
 	}
 	free(str);
-	free_double(link);
+	free_double(link, 2);
 	return (1);
 }
 
@@ -54,7 +54,7 @@ t_lemin		*check_link_name(t_lemin *l, char *line)
 	}
 	if (ft_strequ(link[0], l->room_name) || ft_strequ(link[1], l->room_name))
 		count++;
-	free(link);
+	free_double(link, 2);
 	return ((count == 2) ? head : NULL);
 }
 

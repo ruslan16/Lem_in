@@ -66,15 +66,15 @@ t_lemin 	*ft_check_rooms(char *line, t_lemin *l)
 	room = ft_strsplit(line, ' ');
 	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
 	if (!(check_rooms_d(l, room, line)))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
-	free_double(room);
+	free_double(room, 3);
 	return (head);
 }
 
@@ -89,14 +89,14 @@ t_lemin 	*create_room(t_lemin *l, char *line)
 	room = ft_strsplit(line, ' ');
 	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
 	l->room_name = ft_strdup(room[0]);
 	str = ft_strjoin(room[1], " ");
 	l->coordinate = ft_strjoin(str, room[2]);
 	l->next = NULL;
-	free_double(room);
+	free_double(room, 3);
 	free(str);
 	ft_putstr(line);
 	ft_putchar('\n');

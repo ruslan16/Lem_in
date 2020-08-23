@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:13:05 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/18 23:48:31 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/08/23 22:39:49 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/ft_printf.h"
 
+typedef struct 		s_struct
+{
+	char *room_name;
+	char *links_name;
+	struct s_struct *next;
+}					t_struct;
+
 typedef struct		s_lemin
 {
 	int 			ants;
@@ -23,6 +30,7 @@ typedef struct		s_lemin
 	int 			links;
 	int 			start;
 	int 			end;
+	int 			v;
 	char 			*start_name;
 	char 			*end_name;
 	char 			*start_coord;
@@ -30,8 +38,16 @@ typedef struct		s_lemin
 	char 			*room_name;
 	char 			*links_name;
 	char 			*coordinate;
-	struct s_lemin			*next;
+	struct s_lemin	*next;
 }					t_lemin;
+
+typedef struct 		s_path
+{
+	char 			*path;
+	int 			count_room;
+	int 			ants;
+	struct s_path	*next;
+}					t_path;
 
 int			read_map(int fd, t_lemin *l);
 int			read_map_d(t_lemin *l);
@@ -50,9 +66,12 @@ t_lemin 	*ft_check_links(char *line, t_lemin *l);
 int			count_space(char *line);
 int			count_minus(char *line);
 int			check_isdigit(char *str, char *str2);
-char 		**double_strdup(char **str, int i);
-void		free_double(char **str);
+void		free_double(char **str, int size);
 void		free_struct(t_lemin *l);
-int			search_room(char *str, t_lemin *l);
+char	 	**char_dup_rooms(t_lemin *l);
+char 		**char_dup_links(t_lemin *l);
+int			search_name(char *name, char *str2);
+int			check_room_flag(t_lemin *l, char *link, char *room_name);
+int 		count_links(t_lemin *l, char *link);
 
 #endif

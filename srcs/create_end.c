@@ -63,15 +63,15 @@ t_lemin 	*create_end(t_lemin *l, char *line)
 	room = ft_strsplit(line, ' ');
 	if (!check_end(room, l))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
 	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
-	free_double(room);
+	free_double(room, 3);
 	ft_putstr(line);
 	ft_putchar('\n');
 	return (head);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_start_end.c                                 :+:      :+:    :+:   */
+/*   create_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/19 00:01:40 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/19 14:00:32 by sirvin           ###   ########.fr       */
+/*   Created: 2020/08/19 22:10:49 by sirvin            #+#    #+#             */
+/*   Updated: 2020/08/19 22:10:49 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ t_lemin 	*create_start(t_lemin *l, char *line)
 	room = ft_strsplit(line, ' ');
 	if (!check_start(room, l))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
 	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
 	{
-		free_double(room);
+		free_double(room, 3);
 		return (NULL);
 	}
-	free_double(room);
+	free_double(room, 3);
 	ft_putstr(line);
 	ft_putchar('\n');
 	return (head);
