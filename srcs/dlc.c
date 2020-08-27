@@ -6,21 +6,46 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:36:19 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/23 22:39:49 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/08/27 01:29:15 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
+char 	*last_room(t_path *p, t_lemin *l)
+{
+	char **path;
+	char *link;
+	int i;
+
+	i = 0;
+	if (!p)
+		return (NULL);
+	while (search_name(l->end_name, p->path, l))
+		p = p->next;
+	if (!p)
+		return (NULL);
+	if (count_minus(p->path) == 0)
+		return (p->path);
+	path = ft_strsplit(p->path, '-');
+	while (path[i])
+		i++;
+	link = ft_strdup(path[i - 1]);
+	free_double(path, i);
+	return (link);
+}
+
 int 	count_links(t_lemin *l, char *link)
 {
 	int count;
+	t_lemin *head;
 
+	head = l;
 	count = 0;
 	while (l)
 	{
-		if (search_name(link, l->links_name) ||
-		check_room_flag(l, l->links_name, link))
+		if (search_name(link, l->links_name, head) &&
+		check_room_flag(head, l->links_name, link))
 			count++;
 		l = l->next;
 	}
@@ -31,6 +56,7 @@ int		check_room_flag(t_lemin *l, char *link, char *room_name)
 {
 	char **links;
 	int i;
+	int res;
 
 	links = ft_strsplit(link, '-');
 	if (ft_strequ(links[0], room_name))
@@ -42,44 +68,37 @@ int		check_room_flag(t_lemin *l, char *link, char *room_name)
 		if (ft_strequ(l->room_name, links[i]))
 		{
 			if (l->v == 1)
-				return (0);
+				res = 0;
 			else
-				return (1);
+				res = 1;
 		}
 		l = l->next;
 	}
+	free_double(links, 2);
+	return ((res == 0) ? 0 : 1);
 }
 
-char 	**char_dup_rooms(t_lemin *l)
-{
-	char **rooms;
-	int i;
-
-	i = 0;
-	rooms = ft_memalloc(sizeof(char*) * l->rooms);
-	while (l->next != NULL)
-	{
-		rooms[i] = ft_strdup(l->room_name);
-		l = l->next;
-		i++;
-	}
-	rooms[i] = ft_strdup(l->room_name);
-	return (rooms);
-}
-
-int 	search_name(char *name, char *str2)
+int 	search_name(char *name, char *str2, t_lemin *l)
 {
 	char **links;
 	int res;
+	int i;
 
 	links = ft_strsplit(str2, '-');
-	if (ft_strequ(name, links[0]))
-		res = 1;
-	else if (ft_strequ(name, links[1]))
-		res = 1;
-	else
-		res = 0;
-	free_double(links, 2);
+	i = 0;
+	res = 0;
+	while (links[i])
+	{
+		if (ft_strequ(name, links[i]))
+			res = 1;
+		if (!ft_strequ(name, l->start_name) && ft_strequ(links[i], l->start_name) && (count_minus(str2) == 1))
+		{
+			res = 0;
+			break;
+		}
+		i++;
+	}
+	free_double(links, i);
 	return ((res == 1) ? 1 : 0);
 }
 

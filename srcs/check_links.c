@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 00:00:36 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/19 21:16:59 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/08/26 22:21:17 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int 		check_double_link(char *line, t_lemin *l)
 	if (ft_strequ(str, l->links_name) || ft_strequ(line, l->links_name))
 	{
 		free(str);
-		free_double(link);
+		free_double(link, 2);
 		return (0);
 	}
 	free(str);
@@ -46,14 +46,12 @@ t_lemin		*check_link_name(t_lemin *l, char *line)
 	if ((ft_strequ(link[1], l->start_name) && !(ft_strequ(link[0], l->start_name)))
 	|| (ft_strequ(link[1], l->end_name) && !(ft_strequ(link[0], l->end_name))))
 		count++;
-	while (l->next != NULL)
+	while (l)
 	{
 		if (ft_strequ(link[0], l->room_name) || ft_strequ(link[1], l->room_name))
 			count++;
 		l = l->next;
 	}
-	if (ft_strequ(link[0], l->room_name) || ft_strequ(link[1], l->room_name))
-		count++;
 	free_double(link, 2);
 	return ((count == 2) ? head : NULL);
 }
@@ -88,13 +86,15 @@ t_lemin 	*ft_check_links(char *line, t_lemin *l)
 	t_lemin *head;
 	int count;
 
+	count = l->links;
 	l->links++;
-	count = l->links - 1;
 	head = l;
 	if (!check_link_name(l, line))
 		return (NULL);
 	if (!ft_check_links_d(line, l, count))
 		return (NULL);
+	while (count-- > 0)
+		l = l->next;
 	l->links_name = ft_strdup(line);
 	ft_putstr(line);
 	ft_putchar('\n');

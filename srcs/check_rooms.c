@@ -32,8 +32,10 @@ int 		check_double_name(char **room, t_lemin *l)
 t_lemin 	*check_rooms_d(t_lemin *l, char **room, char *line)
 {
 	t_lemin *tmp;
+	t_lemin *head;
 	char *str;
 
+	head = l;
 	while (l->next != NULL)
 	{
 		if (check_double_name(room, l) == 0)
@@ -53,7 +55,7 @@ t_lemin 	*check_rooms_d(t_lemin *l, char **room, char *line)
 	free(str);
 	ft_putstr(line);
 	ft_putchar('\n');
-	return (l);
+	return (head);
 }
 
 t_lemin 	*ft_check_rooms(char *line, t_lemin *l)

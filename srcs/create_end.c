@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 13:56:52 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/19 14:00:32 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/08/26 19:41:07 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int		check_double_end(char **room, t_lemin *l)
 t_lemin 	*check_end(char **room, t_lemin *l)
 {
 	char *coordinate;
+	t_lemin *head;
 
+	head = l;
 	coordinate = ft_strjoin(room[1], " ");
 	l->end_name = ft_strdup(room[0]);
 	l->end_coord = ft_strjoin(coordinate, room[2]);
@@ -45,11 +47,8 @@ t_lemin 	*check_end(char **room, t_lemin *l)
 		}
 		l = l->next;
 	}
-	if (check_double_end(room, l) == 0)
-	{
-		free(coordinate);
-		return (NULL);
-	}
+	free(coordinate);
+	return (head);
 }
 
 t_lemin 	*create_end(t_lemin *l, char *line)

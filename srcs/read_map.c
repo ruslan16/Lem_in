@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 22:10:35 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/19 22:10:35 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/08/27 00:06:01 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ int 	read_map(int fd, t_lemin *l)
 	int i;
 	char *line;
 	int res;
+	t_lemin *head;
 
 	i = 0;
 	res = 1;
+	head = l;
 	while (get_next_line(fd, &line))
 	{
 		if (!(parsing(line, l, i)))
@@ -99,6 +101,7 @@ int 	read_map(int fd, t_lemin *l)
 		free(line);
 		i++;
 	}
+	l = head;
 	if (l->rooms == 0 || l->links == 0 || l->start != 2 || l->end != 2)
 		return (0);
 	/*ft_printf("\n%d\n", l->ants);
@@ -108,6 +111,11 @@ int 	read_map(int fd, t_lemin *l)
 	ft_printf("%s\n", l->start_coord);
 	ft_printf("%s\n", l->end_name);
 	ft_printf("%s\n", l->end_coord);*/
+	while (head)
+	{
+		ft_printf("%s\n", head->links_name);
+		head = head->next;
+	}
 	if (!res)
 		return (0);
 	else

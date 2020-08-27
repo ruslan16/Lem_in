@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:13:05 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/23 22:39:49 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/08/26 23:11:27 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_lemin 	*check_rooms_d(t_lemin *l, char **room, char *line);
 int 		check_double_name(char **room, t_lemin *l);
 t_lemin 	*create_link(t_lemin *l, char *line);
 t_lemin 	*ft_check_links(char *line, t_lemin *l);
+int 		search_path(t_lemin *l, int number);
 
 
 
@@ -68,10 +69,9 @@ int			count_minus(char *line);
 int			check_isdigit(char *str, char *str2);
 void		free_double(char **str, int size);
 void		free_struct(t_lemin *l);
-char	 	**char_dup_rooms(t_lemin *l);
-char 		**char_dup_links(t_lemin *l);
-int			search_name(char *name, char *str2);
+int			search_name(char *name, char *str2, t_lemin *l);
 int			check_room_flag(t_lemin *l, char *link, char *room_name);
 int 		count_links(t_lemin *l, char *link);
+char		*last_room(t_path *p, t_lemin *l);
 
 #endif
