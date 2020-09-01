@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 22:11:09 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/28 00:26:29 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/01 23:21:55 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int 	search_path(t_lemin *l, int number)
 					if (number > 1)
 						dup_path(p);
 					create_path(p, link, l, head);
-					//ft_printf("%s\n", p->path);
 					p = p->next;
 					l = head;
 					number--;
@@ -151,11 +150,13 @@ int 	search_path(t_lemin *l, int number)
 		l = head;
 		p = head_p;
 		link = last_room(p, head);
+		number = count_links(l, link);
 		while (search_name(l->end_name, p->path, l))
 			p = p->next;
-		number = count_links(l, link);
+		while (p && count_links(l, last_room_d(p, l)) == 0)
+			p = p->next;
 		if (!link || !number)
 			break;
 	}
-	return (1);
+	return ((check_path(head, head_p) == 0 ? 0 : 1));
 }

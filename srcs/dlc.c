@@ -6,11 +6,32 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:36:19 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/27 01:29:15 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/01 21:31:11 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+char 	*last_room_d(t_path *p, t_lemin *l)
+{
+	char **path;
+	char *link;
+	int i;
+
+	i = 0;
+	if (!p)
+		return (NULL);
+	while (search_name(l->end_name, p->path, l))
+		p = p->next;
+	if (count_minus(p->path) == 0)
+		return (p->path);
+	path = ft_strsplit(p->path, '-');
+	while (path[i])
+		i++;
+	link = ft_strdup(path[i - 1]);
+	free_double(path, i);
+	return (link);
+}
 
 char 	*last_room(t_path *p, t_lemin *l)
 {
@@ -23,14 +44,18 @@ char 	*last_room(t_path *p, t_lemin *l)
 		return (NULL);
 	while (search_name(l->end_name, p->path, l))
 		p = p->next;
-	if (!p)
-		return (NULL);
 	if (count_minus(p->path) == 0)
 		return (p->path);
-	path = ft_strsplit(p->path, '-');
-	while (path[i])
-		i++;
-	link = ft_strdup(path[i - 1]);
+	while (p)
+	{
+		path = ft_strsplit(p->path, '-');
+		while (path[i])
+			i++;
+		link = ft_strdup(path[i - 1]);
+		if (count_links(l, link) != 0)
+			break;
+		p = p->next;
+	}
 	free_double(path, i);
 	return (link);
 }
