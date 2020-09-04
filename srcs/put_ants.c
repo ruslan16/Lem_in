@@ -47,7 +47,7 @@ void 	put_ants(t_lemin *l, t_clpath *p)
 	}
 }
 
-void 	put_path(t_lemin *l, t_path *p, int count)
+void 	put_path(t_lemin *l, t_path *p)
 {
 	t_clpath *path;
 	t_clpath *tmp;
@@ -89,6 +89,6 @@ int		check_path(t_lemin *l, t_path *p)
 	}
 	if (count == 0)
 		return (0);
-	put_path(l, head, 0);
+	put_path(l, head);
 	return (1);
 }

@@ -65,7 +65,8 @@ t_lemin 	*create_end(t_lemin *l, char *line)
 		free_double(room, 3);
 		return (NULL);
 	}
-	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
+	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0)
+	|| (ft_check_max(room[1]) == 0 || ft_check_max(room[2]) == 0))
 	{
 		free_double(room, 3);
 		return (NULL);

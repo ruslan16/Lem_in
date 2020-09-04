@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 23:59:17 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/19 21:32:07 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/02 19:33:49 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_lemin 	*ft_check_rooms(char *line, t_lemin *l)
 	l->rooms++;
 	head = l;
 	room = ft_strsplit(line, ' ');
-	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
+	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0)
+	|| (ft_check_max(room[1]) == 0 || ft_check_max(room[2]) == 0))
 	{
 		free_double(room, 3);
 		return (NULL);
@@ -89,7 +90,8 @@ t_lemin 	*create_room(t_lemin *l, char *line)
 	if (l->ants == 0)
 		return (NULL);
 	room = ft_strsplit(line, ' ');
-	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0))
+	if ((room[0][0] == 'L') || (check_isdigit(room[1], room[2]) == 0)
+	|| (ft_check_max(room[1]) == 0 || ft_check_max(room[2]) == 0))
 	{
 		free_double(room, 3);
 		return (NULL);

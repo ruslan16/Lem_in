@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:13:05 by sirvin            #+#    #+#             */
-/*   Updated: 2020/08/26 23:11:27 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/04 21:37:44 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct		s_lemin
 	int 			start;
 	int 			end;
 	int 			v;
+	char 			*link;
+	int 			number;
 	char 			*start_name;
 	char 			*end_name;
 	char 			*start_coord;
@@ -49,8 +51,15 @@ typedef struct 		s_path
 	struct s_path	*next;
 }					t_path;
 
-int			read_map(int fd, t_lemin *l);
-int			read_map_d(t_lemin *l);
+typedef struct 		s_clpath
+{
+	char 			*path;
+	int 			count_room;
+	int 			ants;
+	struct s_clpath	*next;
+}					t_clpath;
+
+int			read_map(int fd, t_lemin *l, int i);
 t_lemin 	*get_ant(t_lemin *l, char *line);
 t_lemin 	*create_start(t_lemin *l, char *line);
 t_lemin 	*create_end(t_lemin *l, char *line);
@@ -60,9 +69,9 @@ t_lemin 	*check_rooms_d(t_lemin *l, char **room, char *line);
 int 		check_double_name(char **room, t_lemin *l);
 t_lemin 	*create_link(t_lemin *l, char *line);
 t_lemin 	*ft_check_links(char *line, t_lemin *l);
-int 		search_path(t_lemin *l, int number);
+int			create_struct_p(t_lemin *l);
 
-
+int		check_path(t_lemin *l, t_path *p);
 
 int			count_space(char *line);
 int			count_minus(char *line);
@@ -73,5 +82,7 @@ int			search_name(char *name, char *str2, t_lemin *l);
 int			check_room_flag(t_lemin *l, char *link, char *room_name);
 int 		count_links(t_lemin *l, char *link);
 char		*last_room(t_path *p, t_lemin *l);
+char 		*last_room_d(t_path *p, t_lemin *l);
+int			ft_check_max(char *str);
 
 #endif

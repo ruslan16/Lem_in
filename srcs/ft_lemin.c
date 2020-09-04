@@ -21,6 +21,8 @@ void 	be_zero_struct(t_lemin *l)
 	l->end = 0;
 	l->rooms = 0;
 	l->links = 0;
+	l->link = NULL;
+	l->number = 0;
 	l->start_name = NULL;
 	l->start_coord = NULL;
 	l->end_name = NULL;
@@ -38,7 +40,7 @@ int		main()
 	if (!(l = ft_memalloc(sizeof(t_lemin))))
 		return (0);
 	be_zero_struct(l);
-	if (read_map(0, l) == 0)
+	if (read_map(0, l, 0) == 0)
 		write(2, "Error\n", 6);
 	//free_struct(l);
 	//free(l);

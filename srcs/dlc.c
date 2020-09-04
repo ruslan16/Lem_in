@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:36:19 by sirvin            #+#    #+#             */
-/*   Updated: 2020/09/01 21:31:11 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/04 14:04:13 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char 	*last_room(t_path *p, t_lemin *l)
 		p = p->next;
 	}
 	free_double(path, i);
+	if (count_links(l, link) == 0)
+		return (NULL);
 	return (link);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 22:11:09 by sirvin            #+#    #+#             */
-/*   Updated: 2020/09/01 23:21:55 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/04 23:34:17 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void 	create_path(t_path *p, char *link, t_lemin *l, t_lemin *head)
 	char **str;
 	int i;
 
+	if (!p)
+		return ;
 	p->count_room++;
 	p->path = ft_strjoin(p->path, "-");
 	str = ft_strsplit(l->links_name, '-');
@@ -57,6 +59,27 @@ void 	dup_path(t_path *p)
 	free(path);
 }
 
+void 	be_zero_flag(t_lemin *l, t_path *p)
+{
+	t_lemin *head;
+
+	head = l;
+	while (p)
+	{
+		if (count_minus(p->path) > 0)
+		{
+			while (l)
+			{
+				if (search_name(l->room_name, p->path, head))
+					l->v = 1;
+				l = l->next;
+			}
+			l = head;
+		}
+		p = p->next;
+	}
+}
+
 void 	be_zero_room(t_lemin *l, t_path *p)
 {
 	t_lemin *head;
@@ -81,82 +104,94 @@ void 	be_zero_room(t_lemin *l, t_path *p)
 		l = l->next;
 	}
 	l = head;
-	while (p)
+	be_zero_flag(l, p);
+}
+
+t_path 	*move_p_list(t_path *p, t_lemin *l)
+{
+	while (search_name(l->end_name, p->path, l))
+		p = p->next;
+	while (p && count_links(l, last_room_d(p, l)) == 0)
+		p = p->next;
+	return (p);
+}
+
+t_path 	*search_path_t(t_lemin *l, t_lemin *head, t_path *p, t_path *head_p)
+{
+	while (head->number > 0 && l)
 	{
-		if (count_minus(p->path) > 0)
+		if (search_name(head->link, l->links_name, head) && check_room_flag(head, l->links_name, head->link))
 		{
-			while (l)
+			if (search_name(head->end_name, l->links_name, head))
 			{
-				if (search_name(l->room_name, p->path, head))
-					l->v = 1;
-				l = l->next;
+				create_path(p, head->link, l, head);
+				p = head_p;
+				l = head;
+				be_zero_room(l, p);
+				break;
 			}
+			if (head->number > 1)
+				dup_path(p);
+			create_path(p, head->link, l, head);
+			p = p->next;
+			head->number--;
 			l = head;
 		}
-		p = p->next;
+		else
+			l = l->next;
+	}
+	return (p);
+}
+
+void 	search_path_d(t_lemin *l, t_path *p, t_lemin *head, t_path *head_p)
+{
+	head->link = last_room(p, head);
+	head->number = count_links(head, head->link);
+	while (p && head->link && head->number)
+	{
+		p = search_path_t(l, head, p, head_p);
+		if (!p)
+			break;
+		head->link = last_room(p, head);
+		head->number = count_links(head, head->link);
+		while (search_name(head->end_name, p->path, head))
+			p = p->next;
 	}
 }
 
-int 	search_path(t_lemin *l, int number)
+int 	search_path(t_lemin *l, t_path *p, int number, char *link)
 {
-	t_path *p;
 	t_lemin *head;
 	t_path *head_p;
-	char *link;
 
 	head = l;
+	head_p = p;
+	while (link && number && p)
+	{
+		search_path_d(l, p, head, head_p);
+		l = head;
+		p = head_p;
+		p = move_p_list(p, l);
+		link = last_room(head_p, head);
+		number = count_links(l, link);
+	}
+	return ((check_path(head, head_p) == 0 ? 0 : 1));
+}
+
+int		create_struct_p(t_lemin *l)
+{
+	t_path *p;
+	int number;
+	char *link;
+
 	if (!(p = ft_memalloc(sizeof(t_path))))
 		return (0);
 	be_zero_path(p, l);
 	p->path = ft_strdup(l->start_name);
-	head_p = p;
 	link = ft_strdup(l->start_name);
 	number = count_links(l, link);
-	while (link)
-	{
-		while (l)
-		{
-			while (number > 0 && l)
-			{
-				if (search_name(link, l->links_name, head) && check_room_flag(head, l->links_name, link))
-				{
-					if (search_name(head->end_name, l->links_name, head))
-					{
-						create_path(p, link, l, head);
-						p = head_p;
-						l = head;
-						be_zero_room(l, p);
-						break;
-					}
-					if (number > 1)
-						dup_path(p);
-					create_path(p, link, l, head);
-					p = p->next;
-					l = head;
-					number--;
-				}
-				else
-					l = l->next;
-			}
-			if (!p)
-				break;
-			link = last_room(p, head);
-			while (search_name(head->end_name, p->path, head))
-				p = p->next;
-			number = count_links(head, link);
-			if (!link || !number)
-				break;
-		}
-		l = head;
-		p = head_p;
-		link = last_room(p, head);
-		number = count_links(l, link);
-		while (search_name(l->end_name, p->path, l))
-			p = p->next;
-		while (p && count_links(l, last_room_d(p, l)) == 0)
-			p = p->next;
-		if (!link || !number)
-			break;
-	}
-	return ((check_path(head, head_p) == 0 ? 0 : 1));
+	if (!search_path(l, p, number, link))
+		return (0);
+	else
+		return (1);
 }
