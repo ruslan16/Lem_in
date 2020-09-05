@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 22:11:09 by sirvin            #+#    #+#             */
-/*   Updated: 2020/09/04 23:34:17 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/05 19:17:08 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ t_path 	*search_path_t(t_lemin *l, t_lemin *head, t_path *p, t_path *head_p)
 {
 	while (head->number > 0 && l)
 	{
-		if (search_name(head->link, l->links_name, head) && check_room_flag(head, l->links_name, head->link))
+		if (search_name(head->link, l->links_name, head)
+		&& check_room_flag(head, l->links_name, head->link))
 		{
 			if (search_name(head->end_name, l->links_name, head))
 			{

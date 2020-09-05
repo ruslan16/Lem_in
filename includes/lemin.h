@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:13:05 by sirvin            #+#    #+#             */
-/*   Updated: 2020/09/04 21:37:44 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/05 21:47:13 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct 		s_clpath
 	struct s_clpath	*next;
 }					t_clpath;
 
+typedef struct 		s_ants
+{
+	char 			*path;
+	int 			name;
+	struct s_ants	*next;
+}					t_ants;
+
 int			read_map(int fd, t_lemin *l, int i);
 t_lemin 	*get_ant(t_lemin *l, char *line);
 t_lemin 	*create_start(t_lemin *l, char *line);
@@ -72,6 +79,8 @@ t_lemin 	*ft_check_links(char *line, t_lemin *l);
 int			create_struct_p(t_lemin *l);
 
 int		check_path(t_lemin *l, t_path *p);
+
+void 	move_ants(t_clpath *p);
 
 int			count_space(char *line);
 int			count_minus(char *line);
