@@ -12,6 +12,22 @@
 
 #include "../includes/lemin.h"
 
+int		check_end_path(t_ants *a, char *str)
+{
+	int i;
+	int j;
+	while (a)
+	{
+		if (ft_strequ(a->path, str))
+			i++;
+		a = a->next;
+		j++;
+	}
+	if (i == j)
+		return (0);
+	return (1);
+}
+
 void 	do_flag(t_lemin *l, char *room, int i)
 {
 	while (l)
@@ -167,7 +183,7 @@ int 	size_double(char **str)
 	int i;
 
 	i = 0;
-	while (str)
+	while (str[i])
 		i++;
 	return (i);
 }

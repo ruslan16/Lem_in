@@ -62,7 +62,8 @@ typedef struct 		s_clpath
 typedef struct 		s_ants
 {
 	char 			*path;
-	int 			name;
+	char 			*name;
+	char 			*prev_room;
 	struct s_ants	*next;
 }					t_ants;
 
@@ -78,9 +79,10 @@ t_lemin 	*create_link(t_lemin *l, char *line);
 t_lemin 	*ft_check_links(char *line, t_lemin *l);
 int			create_struct_p(t_lemin *l);
 
+void 	name_ants(t_clpath *p, t_lemin *l);
 int		check_path(t_lemin *l, t_path *p);
 
-void 	move_ants(t_clpath *p);
+void 	move_ants(t_ants *a, t_lemin *l);
 
 int			count_space(char *line);
 int			count_minus(char *line);
@@ -89,9 +91,13 @@ void		free_double(char **str, int size);
 void		free_struct(t_lemin *l);
 int			search_name(char *name, char *str2, t_lemin *l);
 int			check_room_flag(t_lemin *l, char *link, char *room_name);
+int         check_path_flag(t_lemin *l, char *room_name);
 int 		count_links(t_lemin *l, char *link);
 char		*last_room(t_path *p, t_lemin *l);
 char 		*last_room_d(t_path *p, t_lemin *l);
 int			ft_check_max(char *str);
+void        do_flag(t_lemin *l, char *room, int i);
+int			check_end_path(t_ants *a, char *str);
+int			size_double(char **str);
 
 #endif
