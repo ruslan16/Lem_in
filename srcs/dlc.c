@@ -6,11 +6,21 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 21:36:19 by sirvin            #+#    #+#             */
-/*   Updated: 2020/09/05 19:16:54 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/04 14:04:13 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+void 	do_flag(t_lemin *l, char *room, int i)
+{
+	while (l)
+	{
+		if (ft_strequ(l->room_name, room))
+			l->v = i;
+		l = l->next;
+	}
+}
 
 char 	*last_room_d(t_path *p, t_lemin *l)
 {
@@ -79,6 +89,20 @@ int 	count_links(t_lemin *l, char *link)
 	return (count);
 }
 
+int		check_path_flag(t_lemin *l, char *room_name)
+{
+	while (l)
+	{
+		if (ft_strequ(l->room_name, room_name))
+		{
+			if (l->v == 1)
+				return (0);
+		}
+		l = l->next;
+	}
+	return (1);
+}
+
 int		check_room_flag(t_lemin *l, char *link, char *room_name)
 {
 	char **links;
@@ -136,6 +160,16 @@ void 	free_struct(t_lemin *l)
 	free(l->room_name);
 	free(l->links_name);
 	free(l->coordinate);
+}
+
+int 	size_double(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str)
+		i++;
+	return (i);
 }
 
 void 	free_double(char **str, int size)

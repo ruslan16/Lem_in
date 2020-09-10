@@ -6,7 +6,7 @@
 /*   By: sirvin <sirvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/30 21:31:05 by sirvin            #+#    #+#             */
-/*   Updated: 2020/09/05 21:47:13 by sirvin           ###   ########.fr       */
+/*   Updated: 2020/09/06 15:02:36 by sirvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void 	put_ants(t_lemin *l, t_clpath *p)
 		min = p->count_room + p->ants;
 		p = head;
 	}
-	//free_struct(l);
-	move_ants(head);
+	name_ants(p, l);
 }
 
 t_clpath	*put_path_d(t_clpath *path, t_path *p)
