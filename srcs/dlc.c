@@ -12,13 +12,16 @@
 
 #include "../includes/lemin.h"
 
-int		check_end_path(t_ants *a, char *str)
+int		check_end_path(t_ants *a)
 {
 	int i;
 	int j;
-	while (a)
+
+	i = 0;
+	j = 0;
+	while (a->next != NULL)
 	{
-		if (ft_strequ(a->path, str))
+		if (a->flag == 1)
 			i++;
 		a = a->next;
 		j++;
@@ -68,22 +71,25 @@ char 	*last_room(t_path *p, t_lemin *l)
 	i = 0;
 	if (!p)
 		return (NULL);
-	while (search_name(l->end_name, p->path, l))
+	while (search_name(l->end_name, p->path, l) && p->next != NULL)
 		p = p->next;
 	if (count_minus(p->path) == 0)
 		return (p->path);
 	while (p)
 	{
-		path = ft_strsplit(p->path, '-');
-		while (path[i])
-			i++;
-		link = ft_strdup(path[i - 1]);
-		if (count_links(l, link) != 0)
-			break;
+		if (count_minus(p->path) > 0)
+		{
+			path = ft_strsplit(p->path, '-');
+			while (path[i])
+				i++;
+			link = ft_strdup(path[i - 1]);
+			if (count_links(l, link) != 0)
+				break;
+		}
 		p = p->next;
 	}
 	free_double(path, i);
-	if (count_links(l, link) == 0)
+	if (count_links(l, link) == 0 || ft_strequ(link, l->end_name))
 		return (NULL);
 	return (link);
 }

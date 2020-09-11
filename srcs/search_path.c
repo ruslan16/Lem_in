@@ -109,9 +109,9 @@ void 	be_zero_room(t_lemin *l, t_path *p)
 
 t_path 	*move_p_list(t_path *p, t_lemin *l)
 {
-	while (search_name(l->end_name, p->path, l))
+	while (search_name(l->end_name, p->path, l) && p->next != NULL)
 		p = p->next;
-	while (p && count_links(l, last_room_d(p, l)) == 0)
+	while (p->next != NULL && count_links(l, last_room_d(p, l)) == 0)
 		p = p->next;
 	return (p);
 }
@@ -120,7 +120,8 @@ t_path 	*search_path_t(t_lemin *l, t_lemin *head, t_path *p, t_path *head_p)
 {
 	while (head->number > 0 && l)
 	{
-		if (search_name(head->link, l->links_name, head) && check_room_flag(head, l->links_name, head->link))
+		if (search_name(head->link, l->links_name, head)
+		&& check_room_flag(head, l->links_name, head->link))
 		{
 			if (search_name(head->end_name, l->links_name, head))
 			{
@@ -154,7 +155,7 @@ void 	search_path_d(t_lemin *l, t_path *p, t_lemin *head, t_path *head_p)
 			break;
 		head->link = last_room(p, head);
 		head->number = count_links(head, head->link);
-		while (search_name(head->end_name, p->path, head))
+		while (search_name(head->end_name, p->path, head) && p->next != NULL)
 			p = p->next;
 	}
 }

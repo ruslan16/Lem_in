@@ -64,6 +64,7 @@ typedef struct 		s_ants
 	char 			*path;
 	char 			*name;
 	char 			*prev_room;
+	int 			flag;
 	struct s_ants	*next;
 }					t_ants;
 
@@ -97,7 +98,7 @@ char		*last_room(t_path *p, t_lemin *l);
 char 		*last_room_d(t_path *p, t_lemin *l);
 int			ft_check_max(char *str);
 void        do_flag(t_lemin *l, char *room, int i);
-int			check_end_path(t_ants *a, char *str);
+int			check_end_path(t_ants *a);
 int			size_double(char **str);
 
 #endif
