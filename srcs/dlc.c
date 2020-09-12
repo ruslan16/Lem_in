@@ -33,6 +33,8 @@ int		check_end_path(t_ants *a)
 
 void 	do_flag(t_lemin *l, char *room, int i)
 {
+	if (!room)
+		return ;
 	while (l)
 	{
 		if (ft_strequ(l->room_name, room))
@@ -86,11 +88,15 @@ char 	*last_room(t_path *p, t_lemin *l)
 			if (count_links(l, link) != 0)
 				break;
 		}
+		i = 0;
 		p = p->next;
 	}
 	free_double(path, i);
 	if (count_links(l, link) == 0 || ft_strequ(link, l->end_name))
+	{
+		free(link);
 		return (NULL);
+	}
 	return (link);
 }
 

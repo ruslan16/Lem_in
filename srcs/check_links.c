@@ -64,19 +64,13 @@ t_lemin 	*ft_check_links_d(char *line, t_lemin *l, int count)
 	{
 		if (l->next == NULL)
 		{
-			if (check_double_link(line, l) == 0)
-				return (NULL);
 			if (!(tmp = ft_memalloc(sizeof(t_lemin))))
 				return (NULL);
 			l->next = tmp;
 			l = l->next;
 		}
 		else
-		{
-			if (check_double_link(line, l) == 0)
-				return (NULL);
 			l = l->next;
-		}
 	}
 	return (l);
 }

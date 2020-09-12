@@ -44,5 +44,6 @@ int		main()
 		write(2, "Error\n", 6);
 	//free_struct(l);
 	//free(l);
+	exit(0);
 	return (0);
 }

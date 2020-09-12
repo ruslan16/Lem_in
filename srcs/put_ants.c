@@ -45,6 +45,11 @@ void 	put_ants(t_lemin *l, t_clpath *p)
 		min = p->count_room + p->ants;
 		p = head;
 	}
+	//while (p)
+	//{
+	//	ft_printf("%s\n%d\n", p->path, p->ants);
+	//	p = p->next;
+	//}
 	name_ants(p, l);
 }
 

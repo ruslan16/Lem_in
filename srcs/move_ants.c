@@ -31,13 +31,16 @@ void 	move_ants(t_ants *a, t_lemin *l)
 {
     char	**room;
     t_ants	*head;
-    t_lemin	*head_l;
     char 	*str;
     int 	i;
 
     head = a;
-    head_l = l;
-    a->prev_room = NULL;
+    while (a)
+	{
+		a->prev_room = NULL;
+		a = a->next;
+	}
+	a = head;
     write(1, "\n", 1);
     while (check_end_path(a))
     {
@@ -123,9 +126,9 @@ void 	name_ants(t_clpath *p, t_lemin *l)
     l = head;
     //free_struct_p(p);
     move_ants(a, l);
-    //while (a)
-    //{
-      //  ft_printf("%s\n%s\n", a->path, a->name);
-        //a = a->next;
-  //  }
+   //while (a)
+   //{
+      //ft_printf("%s\n%s\n", a->path, a->name);
+     // a = a->next;
+   //}
 }
