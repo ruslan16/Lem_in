@@ -105,6 +105,6 @@ int 	read_map(int fd, t_lemin *l, int i)
 	if (!res)
 		return (0);
 	else
-	  //return (create_struct_p(l));
-	  return (1);
+	  return (create_struct_p(l));
+	  // return (1);
 }

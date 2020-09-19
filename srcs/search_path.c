@@ -146,7 +146,6 @@ t_path 	*search_path_t(t_lemin *l, t_lemin *head, t_path *p, t_path *head_p)
 
 void 	search_path_d(t_lemin *l, t_path *p, t_lemin *head, t_path *head_p)
 {
-	p = move_p_list(p, l);
 	head->link = last_room(p, head);
 	head->number = count_links(head, head->link);
 	while (p && head->link && head->number)
@@ -156,7 +155,8 @@ void 	search_path_d(t_lemin *l, t_path *p, t_lemin *head, t_path *head_p)
 			break;
 		head->link = last_room(p, head);
 		head->number = count_links(head, head->link);
-		p = move_p_list(p, head);
+		while (search_name(head->end_name, p->path, head) && p->next != NULL)
+		  p = p->next;
 	}
 }
 
@@ -176,8 +176,8 @@ int 	search_path(t_lemin *l, t_path *p, int number, char *link)
 		link = last_room(head_p, head);
 		number = count_links(l, link);
 	}
-	return (1);
-	//return ((check_path(head, head_p) == 0 ? 0 : 1));
+	//return (1);
+	return ((check_path(head, head_p) == 0 ? 0 : 1));
 }
 
 int		create_struct_p(t_lemin *l)
